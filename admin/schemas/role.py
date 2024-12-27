@@ -1,11 +1,15 @@
-from typing import List
-from admin.schemas.permission import serialize_permissions
+from admin.models.role_input import RoleInput
+from admin.models.role_type import RoleType
 
 
-def deserialize_role(role) -> dict:
+def serialize_role(role: RoleInput) -> dict:
+
     return {
-        "id": str(role["id"]),
-        "name": str(role["name"]),
-        "role": str(role["role"]),
-        "permissions": List(serialize_permissions(role["permissions"])),
+        "name": role.name,
+        "role": role.role,
+        # "permissions": List(serialize_permissions(role["permissions"])),
     }
+
+
+def deserialize_role(role) -> RoleType:
+    return RoleType(name=role["name"], role=role["role"])

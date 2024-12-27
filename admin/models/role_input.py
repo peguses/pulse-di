@@ -5,4 +5,4 @@ import strawberry
 class RoleInput:
     name: str
     role: str
-    permissions: dict
+    # permissions: dict

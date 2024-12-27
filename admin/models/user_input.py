@@ -1,6 +1,6 @@
 import strawberry
 
-from admin.enums.role import Role
+from admin.models.role_input import RoleInput
 
 
 @strawberry.input
@@ -9,4 +9,4 @@ class UserInput:
     lastName: str
     email: str
     password: str
-    role: Role
+    role: RoleInput
