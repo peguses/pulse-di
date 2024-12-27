@@ -5,7 +5,6 @@ from admin.schemas.role import deserialize_role, serialize_role
 
 
 def deserialize_user(user) -> UserType:
-
     return UserType(
         id=user["_id"],
         firstName=user["firstName"],
@@ -26,5 +25,5 @@ def serialize_user(user: UserInput) -> dict:
         "lastName": str(user.lastName),
         "email": str(user.email),
         "password": str(user.password),
-        "role": dict(serialize_role(user.role)),
+        "role": serialize_role(user.role),
     }
