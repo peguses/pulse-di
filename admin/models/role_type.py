@@ -2,8 +2,8 @@ import strawberry
 
 
 @strawberry.type
-class Role:
+class RoleType:
     id: int
     name: str
     role: str
-    # permissions: dict
+    permissions: dict
