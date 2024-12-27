@@ -7,7 +7,7 @@ from config.database import user_collection
 
 
 @strawberry.type
-class Mutation:
+class UserMutation:
 
     @strawberry.mutation
     async def create_user(self, user: UserInput) -> UserType:

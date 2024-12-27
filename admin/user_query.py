@@ -7,7 +7,7 @@ from config.database import user_collection
 
 
 @strawberry.type
-class Query:
+class UserQuery:
 
     @strawberry.field
     async def users(self) -> List[UserType]:
