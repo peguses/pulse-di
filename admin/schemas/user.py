@@ -1,6 +1,6 @@
 from typing import List
 from admin.models.user_type import UserType
-from admin.models.user_input import UserInput
+from admin.models.user_input import UserInputRequest
 from admin.schemas.role import deserialize_role, serialize_role
 
 
@@ -19,7 +19,7 @@ def deserialize_users(users) -> List:
     return [serialize_user(user) for user in users]
 
 
-def serialize_user(user: UserInput) -> dict:
+def serialize_user(user: UserInputRequest) -> dict:
     return {
         "firstName": str(user.firstName),
         "lastName": str(user.lastName),
