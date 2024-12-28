@@ -4,7 +4,7 @@ from graphql import GraphQLError
 from pydantic import BaseModel, field_validator
 import strawberry
 
-from admin.models.role_input import RoleInputRequest, ValidatableRoleInput
+from admin.models.role_input import RoleInput, RoleInputRequest
 
 EMAIL_REGEX = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 PASSWORD_REGEX = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
@@ -21,7 +21,7 @@ class UserBase:
 
 class UserInput(BaseModel, UserBase):
     email: str
-    role: ValidatableRoleInput
+    role: RoleInput
 
     @field_validator("firstName")
     @classmethod

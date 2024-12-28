@@ -4,8 +4,11 @@ import strawberry
 
 from admin.exceptions.DuplicateEmailException import DuplicateEmailException
 from admin.models.user_type import UserType
-from admin.models.user_input import UserInputRequest, UserInput
-from admin.schemas.user import deserialize_user, serialize_user
+from admin.models.user_input import UserInputRequest
+from admin.schemas.user import (
+    deserialize_user,
+    validate_and_serialize_user,
+)
 from config.database import user_collection
 
 
@@ -16,8 +19,7 @@ class UserMutation:
     async def create_user(self, user: UserInputRequest) -> Optional[UserType]:
 
         try:
-            user_data = UserInput(**user.__dict__)
-            user_data = serialize_user(user)
+            user_data = validate_and_serialize_user(user)
             result = await user_collection.insert_one(user_data)
             return deserialize_user(
                 await user_collection.find_one({"_id": result.inserted_id})
