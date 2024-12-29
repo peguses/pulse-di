@@ -3,7 +3,7 @@ from pymongo.errors import DuplicateKeyError
 import strawberry
 
 from admin.exceptions.DuplicateEmailException import DuplicateEmailException
-from admin.models.user_input import UserInputRequest, UserType
+from admin.models.user import UserInputRequest, UserType
 from admin.schemas.user import (
     deserialize_user,
     validate_and_serialize_user,

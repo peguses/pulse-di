@@ -1,4 +1,4 @@
-from admin.models.role_input import RoleInputRequest, RoleType
+from admin.models.role import RoleInputRequest, RoleType
 from admin.schemas.permission import deserialize_permission, serialize_permission
 
 

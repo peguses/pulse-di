@@ -1,7 +1,7 @@
 from typing import List
-from admin.models.permission_input import PermissionInput, PermissionInputRequest
-from admin.models.role_input import RoleInput
-from admin.models.user_input import UserInput, UserInputRequest, UserType
+from admin.models.permission import PermissionInputRequest, PermissionInput
+from admin.models.role import RoleInput
+from admin.models.user import UserInput, UserInputRequest, UserType
 from admin.schemas.role import deserialize_role, serialize_role
 
 

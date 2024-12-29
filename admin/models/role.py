@@ -5,7 +5,7 @@ from pydantic import BaseModel, field_validator
 import strawberry
 
 from admin.enums.roles import Roles
-from admin.models.permission_input import (
+from admin.models.permission import (
     PermissionInput,
     PermissionInputRequest,
     PermissionType,
