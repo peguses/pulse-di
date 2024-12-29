@@ -1,12 +1,12 @@
-from admin.models.role_input import RoleInputRequest
-from admin.models.role_type import RoleType
+from admin.models.role_input import RoleInputRequest, RoleType
 from admin.schemas.permission import deserialize_permission, serialize_permission
 
 
 def serialize_role(role: RoleInputRequest) -> dict:
+    print(role)
     return {
         "name": role.name,
-        "role": role.role,
+        "role": role.role.value,
         "permissions": serialize_permission(role.permissions),
     }
 

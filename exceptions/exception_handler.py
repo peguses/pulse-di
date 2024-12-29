@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 
 
 async def value_error_exception_handler(request: Request, exc: ValueError):
-    print("ytest")
+    # print("ytest")
     return JSONResponse(
         status_code=400,
         content={

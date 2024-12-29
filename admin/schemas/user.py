@@ -1,16 +1,16 @@
 from typing import List
-from admin.models.permission_input import PermissionInput
+from admin.models.permission_input import PermissionInput, PermissionInputRequest
 from admin.models.role_input import RoleInput
-from admin.models.user_type import UserType
-from admin.models.user_input import UserInput, UserInputRequest
+from admin.models.user_input import UserInput, UserInputRequest, UserType
 from admin.schemas.role import deserialize_role, serialize_role
 
 
 def deserialize_user(user) -> UserType:
+    print(user)
     return UserType(
         id=user["_id"],
-        firstName=user["firstName"],
-        lastName=user["lastName"],
+        first_name=user["first_name"],
+        last_name=user["last_name"],
         email=user["email"],
         password=user["password"],
         role=deserialize_role(user["role"]),
@@ -24,8 +24,8 @@ def deserialize_users(users) -> List:
 def validate_and_serialize_user(user: UserInputRequest) -> dict:
     user_data = validate_user(user)
     return {
-        "firstName": str(user_data.firstName),
-        "lastName": str(user_data.lastName),
+        "first_name": str(user_data.first_name),
+        "last_name": str(user_data.last_name),
         "email": str(user_data.email),
         "password": str(user_data.password),
         "role": serialize_role(user_data.role),
@@ -33,15 +33,24 @@ def validate_and_serialize_user(user: UserInputRequest) -> dict:
 
 
 def validate_user(user: UserInputRequest) -> UserInputRequest:
-    print(user)
     return UserInput(
-        firstName=user.firstName,
-        lastName=user.lastName,
+        id=None,
+        first_name=user.first_name,
+        last_name=user.last_name,
         password=user.password,
         email=user.email,
         role=RoleInput(
             name=user.role.name,
             role=user.role.role,
-            # permissions=PermissionInput(subject=user.role.permissions),
+            permissions=__build_permission_list(user.role.permissions),
         ),
     )
+
+
+def __build_permission_list(
+    permissions: List[PermissionInputRequest],
+) -> List[PermissionInput]:
+    return [
+        PermissionInput(subject=permission.subject, actions=permission.actions)
+        for permission in permissions
+    ]

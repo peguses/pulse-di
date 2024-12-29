@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from typing import List
-from graphql import GraphQLError
 from pydantic import BaseModel, field_validator
 import strawberry
 
@@ -15,14 +14,21 @@ class PermissionBase:
 
 class PermissionInput(BaseModel, PermissionBase):
 
-    @field_validator("actions")
+    @field_validator("subject")
     @classmethod
     def actions_must_be_valid(cls, value):
-        if not value in Actions.__members__:
-            action_list = ",".join([role.value for role in list(Actions)])
-            raise GraphQLError(f"Actions should be on of {action_list}")
+        # print(value)
+        # if not any(value in values for value in Actions.__members__):
+        #     action_list = ",".join([role.value for role in Actions])
+        #     raise GraphQLError(f"Actions should be on of {action_list}")
+        return value
 
 
 @strawberry.input
 class PermissionInputRequest(PermissionBase):
-    pass
+    actions: List[Actions]
+
+
+@strawberry.type
+class PermissionType(PermissionBase):
+    actions: List[Actions]

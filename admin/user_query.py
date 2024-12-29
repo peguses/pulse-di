@@ -1,7 +1,7 @@
 from typing import List
 import strawberry
 
-from admin.models.user_type import UserType
+from admin.models.user_input import UserType
 from admin.schemas.user import deserialize_users
 from config.database import user_collection
 

@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 import re
+from typing import Optional
 from graphql import GraphQLError
 from pydantic import BaseModel, field_validator
 import strawberry
 
-from admin.models.role_input import RoleInput, RoleInputRequest
+from admin.models.role_input import RoleInput, RoleInputRequest, RoleType
 
 EMAIL_REGEX = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 PASSWORD_REGEX = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
@@ -12,18 +13,20 @@ PASSWORD_REGEX = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?
 
 @dataclass
 class UserBase:
-    firstName: str
-    lastName: str
+    id: Optional[str]
+    first_name: str
+    last_name: str
     email: str
     password: str
-    role: RoleInputRequest
+    role: None
 
 
 class UserInput(BaseModel, UserBase):
+    # id
     email: str
     role: RoleInput
 
-    @field_validator("firstName")
+    @field_validator("first_name")
     @classmethod
     def fist_name_must_be_valid(cls, value):
         if len(value) < 3:
@@ -32,7 +35,7 @@ class UserInput(BaseModel, UserBase):
             raise GraphQLError("First name should only contain character")
         return value
 
-    @field_validator("lastName")
+    @field_validator("last_name")
     @classmethod
     def last_name_must_be_valid(cls, value):
         if len(value) < 3:
@@ -58,4 +61,10 @@ class UserInput(BaseModel, UserBase):
 
 @strawberry.input
 class UserInputRequest(UserBase):
-    pass
+    id = None
+    role: RoleInputRequest
+
+
+@strawberry.type
+class UserType(UserBase):
+    role: RoleType

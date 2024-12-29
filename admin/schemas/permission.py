@@ -1,7 +1,6 @@
 from typing import List
 
-from admin.models.permission_input import PermissionInputRequest
-from admin.models.permission_type import PermissionType
+from admin.models.permission_input import PermissionInputRequest, PermissionType
 
 
 def deserialize_permission(permission) -> PermissionType:
