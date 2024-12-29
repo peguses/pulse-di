@@ -1,8 +1,12 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-client = AsyncIOMotorClient("mongodb://admin:admin@localhost:27017")
+from config.settings import settings
 
-db = client.pulse_di
+print(settings.mongo_db_url)
+
+client = AsyncIOMotorClient(settings.mongo_db_url)
+
+db = client[settings.mongo_db]
 
 user_collection = db["users"]
 
