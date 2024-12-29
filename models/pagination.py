@@ -1,7 +1,8 @@
-from pydantic import BaseModel
+import strawberry
 
 
-class PaginationInfo(BaseModel):
+@strawberry.type
+class PaginationInfo:
     total_count: int
     page: int
     page_size: int

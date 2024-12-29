@@ -11,8 +11,5 @@ class RoleQuery:
     @strawberry.field
     async def get_roles(self) -> List[RoleType]:
         cursor = role_collection.find({})
-        # async for role in cursor:
-        #     return deserialize_role(role)
-        roles = await cursor.to_list(length=10)
-        print(roles)
+        roles = await cursor.to_list(length=100)
         return deserialize_roles(roles)

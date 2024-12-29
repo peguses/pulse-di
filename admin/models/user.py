@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 import re
-from typing import Optional
+from typing import List, Optional
 from graphql import GraphQLError
 from pydantic import BaseModel, field_validator
 import strawberry
 
 from admin.models.role import RoleInput, RoleInputRequest, RoleType
+from models.pagination import PaginationInfo
 
 EMAIL_REGEX = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 PASSWORD_REGEX = r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
@@ -68,3 +69,9 @@ class UserInputRequest(UserBase):
 @strawberry.type
 class UserType(UserBase):
     role: RoleType
+
+
+@strawberry.type
+class PaginatedUserType:
+    users: List[UserType]
+    pagination: Optional[PaginationInfo]
