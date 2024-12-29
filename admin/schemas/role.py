@@ -1,3 +1,4 @@
+from typing import List
 from admin.models.role import RoleInputRequest, RoleType
 from admin.schemas.permission import deserialize_permission, serialize_permission
 
@@ -19,3 +20,7 @@ def deserialize_role(role) -> RoleType:
             deserialize_permission(permission) for permission in role["permissions"]
         ],
     )
+
+
+def deserialize_roles(roles) -> List[RoleType]:
+    return [deserialize_role(role) for role in roles]

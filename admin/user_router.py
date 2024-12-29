@@ -5,5 +5,5 @@ from admin.user_mutation import UserMutation
 from admin.user_query import UserQuery
 
 
-schema = strawberry.Schema(query=UserQuery, mutation=UserMutation)
-user_router = GraphQLRouter(schema)
+user_schema = strawberry.Schema(query=UserQuery, mutation=UserMutation)
+user_router = GraphQLRouter(user_schema)

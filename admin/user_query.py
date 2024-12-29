@@ -10,6 +10,6 @@ from config.database import user_collection
 class UserQuery:
 
     @strawberry.field
-    async def users(self) -> List[UserType]:
+    async def get_users(self) -> List[UserType]:
         for users in user_collection.find():
             return deserialize_users(users)
