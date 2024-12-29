@@ -4,7 +4,6 @@ from admin.schemas.permission import deserialize_permission, serialize_permissio
 
 
 def serialize_role(role: RoleInputRequest) -> dict:
-    print(role)
     return {
         "name": role.name,
         "role": role.role.value,

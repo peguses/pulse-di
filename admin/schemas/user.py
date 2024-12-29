@@ -6,7 +6,6 @@ from admin.schemas.role import deserialize_role, serialize_role
 
 
 def deserialize_user(user) -> UserType:
-    print(user)
     return UserType(
         id=user["_id"],
         first_name=user["first_name"],
