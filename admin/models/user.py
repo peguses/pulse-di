@@ -39,8 +39,8 @@ class UserInput(BaseModel, UserBase):
     @field_validator("last_name")
     @classmethod
     def last_name_must_be_valid(cls, value):
-        if len(value) < 3:
-            raise GraphQLError("Last name must be at least 3 characters long")
+        if len(value) < 1:
+            raise GraphQLError("Last name must be at least 1 characters long")
         if not value.isalpha():
             raise GraphQLError("Last name should only contain character")
         return value

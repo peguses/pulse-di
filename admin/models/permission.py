@@ -17,7 +17,6 @@ class PermissionInput(BaseModel, PermissionBase):
     @field_validator("subject")
     @classmethod
     def actions_must_be_valid(cls, value):
-        # print(value)
         # if not any(value in values for value in Actions.__members__):
         #     action_list = ",".join([role.value for role in Actions])
         #     raise GraphQLError(f"Actions should be on of {action_list}")

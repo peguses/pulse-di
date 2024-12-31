@@ -3,6 +3,7 @@ from fastapi.responses import RedirectResponse
 from pymongo.errors import DuplicateKeyError
 import httpx
 from admin.auth.google_auth import google
+from admin.models.permission import PermissionInput
 from admin.schemas.user import validate_and_serialize_user
 from config.database import role_collection, user_collection
 from admin.enums.roles import Roles
@@ -32,7 +33,6 @@ async def callback(request: Request):
     if not role:
         raise NotFoundException("Guest role not found")
 
-    print(role)
     user = UserInputRequest(
         id=None,
         first_name=first_name,
@@ -40,13 +40,20 @@ async def callback(request: Request):
         email=email,
         password="1qaz2wsxW@",
         role=RoleInputRequest(
-            name=role["name"], role=role["role"], permissions=PermissionInput
+            name=role["name"],
+            role=role["role"],
+            permissions=[
+                PermissionInput(
+                    subject=permission["subject"], actions=permission["actions"]
+                )
+                for permission in role["permissions"]
+            ],
         ),
     )
 
     try:
 
-        user_collection.insert_one(validate_and_serialize_user(user))
+        await user_collection.insert_one(validate_and_serialize_user(user))
 
     except DuplicateKeyError as de:
         raise DuplicateEmailException(
@@ -66,7 +73,6 @@ async def get_google_user_profile(token: str):
 
         if response.status_code == 200:
             user_info = response.json()
-            print(user_info)
             first_name = user_info.get("given_name", "Unknown")
             last_name = user_info.get("family_name", "Unknown")
             email = user_info.get("email", "Unknown")

@@ -4,5 +4,5 @@ from enum import Enum
 class Roles(Enum):
     ADMIN = "ADMIN"
     MANAGER = "MANAGER"
-    GUEST = ("GUEST",)
+    GUEST = "GUEST"
     MARKETING_MANAGER = "MARKETING_MANAGER"
