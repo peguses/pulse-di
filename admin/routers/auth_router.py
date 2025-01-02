@@ -11,7 +11,7 @@ google_auth = GoogleAuth()
 @auth_router.get("/login")
 async def login(request: Request):
     return await google_auth.authorize_redirect(
-        request, google_auth_settings.google_redirect_url
+        request, google_auth_settings.redirect_url
     )
 
 
@@ -19,8 +19,8 @@ async def login(request: Request):
 async def callback(request: Request):
     print(google_auth.auth)
     token = await google_auth.auth.authorize_access_token(request)
-    first_name, last_name, email = await google_auth.get_google_user_profile(
-        google_auth_settings.google_profile_info_url, token["access_token"]
+    first_name, last_name, email = await google_auth.get_user_profile(
+        google_auth_settings.profile_info_url, token["access_token"]
     )
 
     await google_auth.create_user(

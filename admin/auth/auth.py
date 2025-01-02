@@ -21,7 +21,7 @@ class Auth(ABC):
         pass
 
     @abstractmethod
-    async def get_google_user_profile(self, profile_info_url: str, token: str):
+    async def get_user_profile(self, profile_info_url: str, token: str):
         pass
 
     @abstractmethod

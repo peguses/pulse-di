@@ -20,12 +20,12 @@ class GoogleAuth(Auth):
         super().__init__()
         self.auth = OAuth().register(
             "google",
-            client_id=google_auth_settings.google_client_id,
-            client_secret=google_auth_settings.google_client_secret,
-            authorize_url=google_auth_settings.google_authorize_url,
+            client_id=google_auth_settings.client_id,
+            client_secret=google_auth_settings.client_secret,
+            authorize_url=google_auth_settings.authorize_url,
             authorize_params=None,
-            jwks_uri=google_auth_settings.google_jwks_uri,
-            access_token_url=google_auth_settings.google_access_token_url,
+            jwks_uri=google_auth_settings.jwks_uri,
+            access_token_url=google_auth_settings.access_token_url,
             refresh_token_url=None,
             client_kwargs={"scope": "openid email profile"},
         )
@@ -33,10 +33,10 @@ class GoogleAuth(Auth):
     async def authorize_redirect(self, request: Request, redirect_url):
         return await self._auth.authorize_redirect(request, redirect_url)
 
-    async def get_google_user_profile(self, profile_info_url: str, token: str):
+    async def get_user_profile(self, profile_info_url: str, token: str):
         async with httpx.AsyncClient() as client:
             response = await client.get(
-                google_auth_settings.google_profile_info_url,
+                google_auth_settings.profile_info_url,
                 headers={"Authorization": f"Bearer {token}"},
             )
 
