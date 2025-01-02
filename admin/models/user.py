@@ -5,6 +5,7 @@ from graphql import GraphQLError
 from pydantic import BaseModel, field_validator
 import strawberry
 
+from admin.enums.auth_provider import AuthProvider
 from admin.models.role import RoleInput, RoleInputRequest, RoleType
 from models.pagination import PaginationInfo
 
@@ -20,6 +21,7 @@ class UserBase:
     email: str
     password: str
     role: None
+    auth_provider: AuthProvider
 
 
 class UserInput(BaseModel, UserBase):

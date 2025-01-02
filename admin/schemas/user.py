@@ -12,6 +12,7 @@ def deserialize_user(user) -> UserType:
         last_name=user["last_name"],
         email=user["email"],
         password=user["password"],
+        auth_provider=user["auth_provider"],
         role=deserialize_role(user["role"]),
     )
 
@@ -28,6 +29,7 @@ def validate_and_serialize_user(user: UserInputRequest) -> dict:
         "email": str(user_data.email),
         "password": str(user_data.password),
         "role": serialize_role(user_data.role),
+        "auth_provider": user_data.auth_provider.name,
     }
 
 
@@ -38,6 +40,7 @@ def validate_user(user: UserInputRequest) -> UserInputRequest:
         last_name=user.last_name,
         password=user.password,
         email=user.email,
+        auth_provider=user.auth_provider,
         role=RoleInput(
             name=user.role.name,
             role=user.role.role,
