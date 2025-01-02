@@ -36,7 +36,7 @@ class GoogleAuth(Auth):
     async def get_user_profile(self, profile_info_url: str, token: str):
         async with httpx.AsyncClient() as client:
             response = await client.get(
-                google_auth_settings.profile_info_url,
+                profile_info_url,
                 headers={"Authorization": f"Bearer {token}"},
             )
 

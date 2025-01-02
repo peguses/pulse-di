@@ -3,19 +3,19 @@ from fastapi.responses import RedirectResponse
 from admin.auth.google_auth import GoogleAuth
 from config.settings import google_auth_settings
 
-auth_router = APIRouter()
+google_auth_router = APIRouter()
 
 google_auth = GoogleAuth()
 
 
-@auth_router.get("/login")
+@google_auth_router.get("/google_login")
 async def login(request: Request):
     return await google_auth.authorize_redirect(
         request, google_auth_settings.redirect_url
     )
 
 
-@auth_router.get("/callback")
+@google_auth_router.get("/google_callback")
 async def callback(request: Request):
     print(google_auth.auth)
     token = await google_auth.auth.authorize_access_token(request)
